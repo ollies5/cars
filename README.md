@@ -7,73 +7,130 @@
 - **Date:** 11/3/2025
 
 ## Program Description
-This script prompts the user to enter a positive integer and then prints all integers from **1** up to and including that number. Each number is labeled as **“Odd”** or **“Even.”**  
-It demonstrates conditional logic, arithmetic evaluation, and iteration using a `for` loop in Bash.  
+This script helps users maintain an inventory of old cars. It has a menu with three options: adding a car to the inventory, listing all cars sorted by year, and quitting the program.  
+Each car record contains three fields (Year, Make, Model) separated by colons and stored in the `my_old_cars` file.  
 
 ## Example Output
-If the user enters **5**, the program should display:
+When running the script interactively:
 ```
-1 Odd
-2 Even
-3 Odd
-4 Even
-5 Odd
+=== Old Cars Inventory ===
+1. Add a car
+2. List all cars
+3. Quit
+
+Enter your choice (1-3): 1
+
+Enter the year: 1967
+Enter the make: Ford
+Enter the model: Mustang
+Car added successfully!
+
+=== Old Cars Inventory ===
+1. Add a car
+2. List all cars
+3. Quit
+
+Enter your choice (1-3): 2
+
+=== Cars in Inventory (sorted by year) ===
+1948:Ford:sedan
+1952:Chevrolet:coupe
+1960:Ford:Mustang
+1967:Ford:Mustang
+1972:Chevrolet:Corvette
+
+=== Old Cars Inventory ===
+1. Add a car
+2. List all cars
+3. Quit
+
+Enter your choice (1-3): 3
+
+Goodbye
 ```
 
 ## Usage
 To run the script interactively:
 ```bash
-./numbers.sh
+./cars.sh
 ```
 
-To test with an input file (for example, `numbers-input`):
+To test with an input file (for example, `cars-input`):
 ```bash
-./numbers.sh < numbers-input
+./cars.sh < cars-input
 ```
 
 ## How the Script Works
-1. The script begins with a **shebang** (`#!/bin/bash`) and identifying comments.  
-2. It **prompts** the user for a positive integer using `read`.  
-3. A **for loop** iterates from `1` to the user’s number.  
-4. The **modulus operator (`%`)** determines whether the number is odd or even.  
-5. For each number, an `if` statement prints the number followed by either “Odd” or “Even.”  
-
-## Core Logic Example
-```bash
-for (( i=1; i<=num; i++ ))
-do
-  if (( i % 2 == 0 ))
-  then
-    echo "$i Even"
-  else
-    echo "$i Odd"
-  fi
-done
-```
+1. The script begins with a shebang (`#! /bin/bash`) and identifying comments.  
+2. It creates or touches the **inventory file** (`my_old_cars`) to make sure it exists.  
+3. A while loop continuously displays the menu until the user chooses to quit.  
+4. User input is processed using a case statement with three options:
+   - **Option 1 (Add):** Prompts for year, make, and model separately, then adds the record to the inventory file.
+   - **Option 2 (List):** Displays all cars sorted by year using the `sort` command.
+   - **Option 3 (Quit):** Displays a goodbye message and exits the loop.
 
 ## Testing Results
-When tested with the input file `numbers-input` containing:
+When tested with the input file `cars-input` containing:
 ```
-5
+1
+1984
+Toyota
+Supra
+2
+3
 ```
 The script outputs:
 ```
-1 Odd
-2 Even
-3 Odd
-4 Even
-5 Odd
-```
+=== Old Cars Inventory ===
+1. Add a car
+2. List all cars
+3. Quit
 
-You should also verify:
-- That negative or zero inputs are handled gracefully (optional).  
-- That input `10` produces alternating Odd/Even lines up to 10.  
+Enter your choice (1-3): 
+Enter the year: 
+Enter the make: 
+Enter the model: Car added successfully!
+
+=== Old Cars Inventory ===
+1. Add a car
+2. List all cars
+3. Quit
+
+Enter your choice (1-3): 
+=== Cars in Inventory (sorted by year) ===
+1948:Ford:sedan
+1952:Chevrolet:coupe
+1960:Ford:Mustang
+1972:Chevrolet:Corvette
+1984:Toyota:Supra
+
+=== Old Cars Inventory ===
+1. Add a car
+2. List all cars
+3. Quit
+
+Enter your choice (1-3): 
+Goodbye
+```
 
 ## Example Validations
 | Input | Output Behavior |
 |--------|------------------|
-| 3 | 1 Odd  2 Even  3 Odd |
-| 7 | 1 Odd  2 Even  3 Odd  4 Even  5 Odd  6 Even  7 Odd |
+| 1, 2000, Honda, Civic, 3 | Adds 2000:Honda:Civic to inventory, then quits |
+| 2 (with empty file) | Displays "No cars in inventory yet." |
+| 4 | Displays "Invalid choice. Please enter 1, 2, or 3." |
+
+## File Format
+The inventory file (`my_old_cars`) stores one car per line with the format:
+```
+YEAR:MAKE:MODEL
+```
+Example:
+```
+1967:Ford:Mustang
+1984:Toyota:Supra
+1972:Chevrolet:Corvette
+```
 
 ## Resources
 Class slides
