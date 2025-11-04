@@ -13,15 +13,15 @@ while true; do
     echo "2. List all cars"
     echo "3. Quit"
     echo ""
-    read -p -r "Enter your choice (1-3): " choice || break
+    read -r -p "Enter your choice (1-3): " choice || break
     choice=$(echo "$choice" | tr -d '\r')
     
     case $choice in
         1)
             echo ""
-            read -p -r "Enter the year: " year || break
-            read -p -r "Enter the make: " make || break
-            read -p -r "Enter the model: " model || break
+            read -r -p "Enter the year: " year || break
+            read -r -p "Enter the make: " make || break
+            read -r -p "Enter the model: " model || break
             year=$(echo "$year" | tr -d '\r')
             make=$(echo "$make" | tr -d '\r')
             model=$(echo "$model" | tr -d '\r')
